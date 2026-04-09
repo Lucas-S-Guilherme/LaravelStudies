@@ -17,52 +17,11 @@ Route::get('/user', function() {
     return '<h1>Aqui está o usuário!</h1>';
 });
 
-// ❌ NUNCA fazer isso - TRAVA O NAVEGADOR:
-// Route::get('/injection', function(Request $request) {
-//     var_dump($request);  // Gigantesco, referências circulares, trava!
-// });
-
 // ✅ OPÇÃO 1: dd() - Debug rápido (mostra e para a execução)
 Route::get('/injection', function(Request $request) {
     dd($request->all()); // Limpo, formatado e seguro
 });
 
-// ✅ OPÇÃO 2: Ver dados específicos da requisição
-Route::get('/injection-info', function(Request $request) {
-    return [
-        'metodo' => $request->method(),
-        'url' => $request->url(),
-        'caminho' => $request->path(),
-        'user_agent' => $request->userAgent(),
-        'ip' => $request->ip(),
-        'todos_dados' => $request->all(),
-        'query_string' => $request->query(),
-        'headers' => $request->headers->all(),
-    ];
-});
-
-// ✅ OPÇÃO 3: Usando logging (persiste em arquivo)
-Route::get('/injection-log', function(Request $request) {
-    \Log::debug('Requisição recebida', [
-        'metodo' => $request->method(),
-        'url' => $request->url(),
-        'dados' => $request->all(),
-        'timestamp' => now(),
-    ]);
-    return 'Verificar em storage/logs/laravel.log';
-});
-
-// ✅ OPÇÃO 4: Resposta JSON (melhor para APIs)
-Route::get('/injection-json', function(Request $request) {
-    return response()->json([
-        'status' => 'sucesso',
-        'requisicao' => [
-            'metodo' => $request->method(),
-            'url' => $request->url(),
-            'dados' => $request->all(),
-        ]
-    ]);
-});
 
 Route::match(['get', 'post'], '/match', function(Request $request) {
     return '<h1> Aceita GET e POST</h1>';
@@ -80,4 +39,20 @@ Route::permanentRedirect('/saltar2', '/index');
 
 Route::view('/view', 'home');
 Route::view('/view2', 'home', ['myName' => "Lucas Guilherme"]);
+
+// -------------------------
+// ROUTE PARAMETERS
+// -------------------------
+
+Route::get('/valor/{value}', [MainController::class, 'mostrarValor']);
+
+Route::get('/valores/{value1}/{value2}', [MainController::class, 'mostrarValores']);
+
+Route::get('/valores2/{value1}/{value2}', [MainController::class, 'mostrarValores2']);
+
+Route::get('/opcional/{value?}', [MainController::class, 'mostrarValorOpcional']);
+
+Route::get('/opcional1/{value1}/{value2?}', [MainController::class, 'mostrarValorOpcional2']);
+
+Route::get('/user/{user_id}/post/{post_id}', [MainController::class, 'mostrarPosts']);
 
