@@ -22,7 +22,6 @@ Route::get('/injection', function(Request $request) {
     dd($request->all()); // Limpo, formatado e seguro
 });
 
-
 Route::match(['get', 'post'], '/match', function(Request $request) {
     return '<h1> Aceita GET e POST</h1>';
 });
@@ -56,3 +55,20 @@ Route::get('/opcional1/{value1}/{value2?}', [MainController::class, 'mostrarValo
 
 Route::get('/user/{user_id}/post/{post_id}', [MainController::class, 'mostrarPosts']);
 
+// -------------------------
+// ROUTE PARAMETERS WITH CONSTRAINTS
+// -------------------------
+Route::get('/exp1/{value}', function($value){
+    echo $value;
+})->where('value', '[0-9]+');
+
+Route::get('/exp2/{value}', function($value){
+    echo $value;
+})->where('value', '[A-Za-z0-9]+');
+
+Route::get('/exp3/{value1}/{value2}', function($value){
+    echo $value;
+})->where([
+    'value1' => '[0-9]+',
+    'value2' => '[A-Za-z]+'
+    ]);
