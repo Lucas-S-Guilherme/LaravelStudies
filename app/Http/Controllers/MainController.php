@@ -6,45 +6,18 @@ use Illuminate\Http\Request;
 
 class MainController extends Controller
 {
-    public function index()
+    public function index(): void
     {
-        echo 'index';
+        echo '<p>Index</p>';
     }
 
-    public function about()
+    public function about(): void
     {
-        echo 'about';
+        echo '<p>About</p>';
     }
 
-    public function mostrarValor($valor)
+    public function contact(): void
     {
-        echo "Valor enViado pela rota: $valor";
+        echo '<p>Contact</p>';
     }
-
-    public function mostrarValores($valor1, $valor2)
-    {
-        echo "Valores enviados pela rota: $valor1 e $valor2";
-    }
-
-    public function mostrarValores2(Request $request, $valor1, $valor2)
-    {
-        echo "Valores enviados pela rota: $valor1 e $valor2";
-    }
-
-    public function mostrarValorOpcional ($valor = null)
-    {
-        echo "Valor opcional: $valor";
-    }
-
-    public function mostrarValorOpcional2 ($valor1, $valor2 = "valor padrão - sem inserção de nada")
-    {
-        echo "Valor Obrigatório $valor1, E Valor opcional: $valor2";
-    }
-
-    public function mostrarPosts($user_id, $post_id)
-    {
-        echo "Posts do usuário ID: $user_id e o post com ID: $post_id";
-    }
-
-
 }
