@@ -1,9 +1,7 @@
-@extends('layouts.main_layout')
+@extends('layouts/main_layout')
 @section('content')
 
-{{-- Apresentar myName a partir da route::view --}}
-@if(!empty($myName))
-    <p>{{ $myName }}</p>
-@endif
+<p class="display-1 text-center"> Hello Word</p>
 
 @endsection
+
