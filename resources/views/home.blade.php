@@ -1,30 +1,37 @@
 @extends('layouts/main_layout')
 @section('content')
 
-{{-- for --}}
-@for($index = 0; $index <5; $index++)
-    <h1>{{ $index }}</h1>
+{{-- continue e break --}}
+@for ($index = 0; $index < 10; $index++ )
+
+    {{-- continue --}}
+    @if($index == 5)
+        @continue
+    @endif
+
+    <p>Index: {{ $index }}</p>
+
+    {{-- break --}}
+    @if($index == 7)
+        @break
+    @endif
+
 @endfor
 
-{{-- foreach --}}
-@foreach($cities as $city)
-<h1> {{ $city }}</h1>
+{{-- loop variable --}}
+@foreach ($cities as $city)
+
+    <h1>{{ $city }}</h1>
+    <h3>{{ $loop->index }}</h3>
+
+    @if($loop->first)
+        <h3>Primeira cidade</h3>
+    @endif
+
+    @if($loop->last)
+        <h3>Última cidade</h3>
+    @endif
+
 @endforeach
-
-{{-- forelse --}}
-@forelse($names as $name)
-    <p> {{ $name  }}</p>
-@empty
-    <p>Names está vazio</p>
-@endforelse
-
-@while ($indice < 10)
-    <p>Índice: {{ $indice}}</p>
-    
-    @php
-        $indice++;
-    @endphp
-@endwhile
-
 
 @endsection
