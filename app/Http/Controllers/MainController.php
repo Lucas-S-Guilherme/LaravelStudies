@@ -2,42 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class MainController extends Controller
 {
-    public function showView(): View
+    public function home()
     {
-        $data = [
-            'value' => 100,
-            'cities' => ['New York', 'Los Angeles', 'Chicago'],
-            'names' => ['a', 'b', 'c'],
-            'indice' => 1
-        ];
-
-        return view('home', $data);
+        echo 'apresentar a página inicial';
     }
 
-    public function submitForm(Request $request):void
+    public function makeExercises(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'country' => 'required|min:6'
-        ]);
-        
-        echo "formulário submetido com sucesso";
+        echo 'faz os exercícios';
     }
 
-    public function setSession(): View
+    public function printExercises()
     {
-        session(['name' => 'John Doe']);
-        return view('home');
+        echo 'mostra na tela os exercícios';
     }
 
-    public function clearSession(): View
+    public function exportExercises()
     {
-        session()->forget('name');
-        return view('home');
+        echo 'exporta os exercícios para um arquivo.';
     }
 }
