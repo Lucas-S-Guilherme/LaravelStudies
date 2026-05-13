@@ -1,31 +1,37 @@
 @extends('layouts/main_layout')
 @section('content')
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-6">
-            <form action="{{ route("submit") }}" method="post">
-                @csrf
+@production
+    <p>Estou em ambiente de produção</p>
+@endproduction
+    <p>Não estou em produção</p>
 
-                <div class="mb-3">
-                    <label
-                    class="form-label">Username:</label>
-                    <input type="text" name="username" class="form-control">
-                </div>
+@env(['local', 'development'])
+    <p>Estou no ambiente {{ env('APP_ENV') }}</p>
+@endenv
 
-                <div class="mb-3">
-                    <label class="form-label">Password:</label>
-                    <input type="password"
-                    name="password"
-                    class="form-control">
-                </div>
+{{-- formulário --}}
 
-                <div class="mb-3">
-                    <button class="btn btn-primary">Loggin</button>
-                </div>
-            </form>
-        </div>
+<form action="{{ route("submit") }}" method="post">
+
+    @csrf
+
+    <div>
+        <input type="text" name="name">
+        @error('name')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
     </div>
-</div>
+
+    <div>
+        <input type="text" name="country">
+        @error('country')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+    </div>
+
+    <button type="submit">Enviar</button>
+
+</form>
 
 @endsection
